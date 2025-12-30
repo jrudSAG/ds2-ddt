@@ -1,22 +1,64 @@
 {
   "iot-data": {
-    "neuerTest": [
+    "id": [
       {
         "rule": "expect_column_values_to_not_be_null",
         "params": {
-          "column": "neuerTest"
-        }
+          "column": "id"
+        },
+        "handler": ""
       }
     ]
   },
   "air-quality": {
+    "pm10": [
+      {
+        "rule": "expect_column_values_to_be_between",
+        "params": {
+          "column": "pm10",
+          "min_value": 0,
+          "max_value": 80,
+          "strict_min": true,
+          "strict_max": true
+        },
+        "handler": "SmoothingOutliers"
+      }
+    ],
+    "pm1": [
+      {
+        "rule": "expect_column_values_to_be_between",
+        "params": {
+          "column": "pm1",
+          "min_value": 0,
+          "max_value": 80,
+          "strict_min": true,
+          "strict_max": true
+        },
+        "handler": "SmoothingOutliers"
+      }
+    ],
+    "pm25": [
+      {
+        "rule": "expect_column_values_to_be_between",
+        "params": {
+          "column": "pm25",
+          "min_value": 0,
+          "max_value": 80,
+          "strict_min": true,
+          "strict_max": true
+        },
+        "handler": "SmoothingOutliers"
+      }
+    ],
     "co": [
       {
         "rule": "expect_column_values_to_be_between",
         "params": {
           "column": "co",
-          "min_value": 0.0,
-          "max_value": 0.9
+          "min_value": 0,
+          "max_value": 0.9,
+          "strict_min": true,
+          "strict_max": true
         },
         "handler": "SmoothingOutliers"
       }
@@ -28,19 +70,23 @@
           "column": "no2",
           "min_value": 2,
           "max_value": 25,
-          "strict_min": false,
-          "strict_max": false
+          "strict_min": true,
+          "strict_max": true
         },
         "handler": "SmoothingOutliers"
       }
     ],
     "o3": [
       {
-        "rule": "expect_column_values_to_not_be_null",
+        "rule": "expect_column_values_to_be_between",
         "params": {
-          "column": "o3"
+          "column": "o3",
+          "min_value": 0,
+          "max_value": 120,
+          "strict_min": true,
+          "strict_max": true
         },
-        "handler": "RaiseAlarm"
+        "handler": "SmoothingOutliers"
       }
     ],
     "dateTo": [
@@ -51,6 +97,32 @@
           "regex": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(Z|[+-]\\d{2}(:?\\d{2})?)$"
         },
         "handler": "TimestampCorrection"
+      }
+    ],
+    "lat": [
+      {
+        "rule": "expect_column_values_to_be_between",
+        "params": {
+          "column": "lat",
+          "min_value": -90,
+          "max_value": 90,
+          "strict_min": false,
+          "strict_max": false
+        },
+        "handler": "SmoothingOutliers"
+      }
+    ],
+    "lon": [
+      {
+        "rule": "expect_column_values_to_be_between",
+        "params": {
+          "column": "lon",
+          "min_value": -180,
+          "max_value": 180,
+          "strict_min": true,
+          "strict_max": true
+        },
+        "handler": "SmoothingOutliers"
       }
     ]
   }
